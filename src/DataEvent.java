@@ -18,8 +18,4 @@ public class DataEvent {
     public String getRaceCat() {
         return raceCat;
     }
-
-    public void setRaceCat(String raceCat) {
-        this.raceCat = raceCat;
-    }
 }

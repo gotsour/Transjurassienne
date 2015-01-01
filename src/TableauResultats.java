@@ -1,20 +1,18 @@
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.TreeSet;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.text.html.HTMLDocument;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class TableauResultats extends AbstractTableModel {
-    private final static String PATH_TO_IMG = "../rss/img/";
-    private TreeSet<Coureur> hm;
+    private final static String PATH_TO_IMG = "rss\\img\\";
+    private ArrayList<Coureur> hm;
     private Object[][] data1;
     private String[] columnTitles = { "#", "Nom", "Naissance", "Club", "Temps",
             "Classement catégorie", "Pays" };
 
-    public TableauResultats(TreeSet<Coureur> data) {
+    public TableauResultats(ArrayList<Coureur> data) {
         hm=data;
         data1 = new Object[hm.size()][7];
         int n = 0;

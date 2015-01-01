@@ -1,11 +1,5 @@
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
 
 public class PanelStats extends JPanel {
@@ -23,7 +17,6 @@ public class PanelStats extends JPanel {
         insets = new Insets(10, 0, 0, 0);
         gc.insets = insets;
 
-        //First row //////////////////////////////////////////////////////////
         gc.gridy = 0;
 
         gc.gridx = 0;

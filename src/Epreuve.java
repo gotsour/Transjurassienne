@@ -1,23 +1,23 @@
-import java.util.TreeSet;
+import java.util.ArrayList;
 
 public class Epreuve {
     protected int distance;
     protected int annee;
     protected boolean sexe;
-    private TreeSet<Coureur> participants;
+    private ArrayList<Coureur> participants;
 
     public Epreuve(int annee, boolean sexe, int distance) {
         this.annee = annee;
         this.sexe = sexe;
         this.distance = distance;
-        participants = new TreeSet<Coureur>();
+        participants = new ArrayList<Coureur>();
     }
 
     public void addParticipant(Coureur participant) {
         participants.add(participant);
     }
 
-    public TreeSet<Coureur> getParticipants() {
+    public ArrayList<Coureur> getParticipants() {
         return participants;
     }
 }
