@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.TreeSet;
 
 public class Parser {
@@ -16,12 +15,14 @@ public class Parser {
     private static Parser instance = null;
     public static Parser getInstance() {
         if (null == instance)
-            instance = new Parser(new String("C:\\Users\\thomas\\workspace\\Transjurassienne\\rss\\csv\\2011.csv"));
+            instance = new Parser(new String("C:\\Users\\thomas\\Documents\\GitHub\\Transjurassienne\\rss\\csv\\2011.csv"));
         return instance;
     }
 
     public Parser(String file_path) {
+        instance=this;
         path = file_path;
+        coureurTreeSet = new TreeSet<Coureur>();
     }
 
     ArrayList<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
@@ -47,7 +48,6 @@ public class Parser {
             lineNumber += 1;
         }
         br.close();
-        System.out.println(data);
     }
 
     public void creerPersonne() {
@@ -64,7 +64,7 @@ public class Parser {
         int classement_cat = 0;
         String temps = "";
 
-        annees = new HashMap<String, Annee>();
+        this.annees = new HashMap<String, Annee>();
 
 
         tmpYear = new Annee(2011);
@@ -85,46 +85,29 @@ public class Parser {
                 classement = Integer.parseInt(entry.get("Classement"));
                 classement_cat = Integer.parseInt(entry.get("Classement_cat"));
                 temps = entry.get("Arrivee");
-                if ('F' == entry.get("Course").charAt(entry.get("Course").length() - 1))
+                if ('F' == entry.get("Course").charAt(entry.get("Course").length() - 1)){
                     tmpCoureur = new Femme(nom, naissance, club, nationalite, categorie, classement, temps, classement_cat);
-                else
+                    coureurTreeSet.add(tmpCoureur);
+                }
+                else{
                     tmpCoureur = new Homme(nom, naissance, club, nationalite, categorie, classement, temps, classement_cat);
+                    coureurTreeSet.add(tmpCoureur);
+                }
                 tmpYear.getEpreuve().get(entry.get("Course")).addParticipant(tmpCoureur);
-                coureurTreeSet.add(tmpCoureur);
+
             }
         }
-        annees.put("2011", tmpYear);
+        this.annees.put("2011", tmpYear);
     }
 
     public HashMap<String, Annee> getYears() {
-        return instance.annees;
+        return annees;
     }
 
     public int numberOfParticipants(String year, String category) {
-        return instance.getYears().get(year).getEpreuve().get(category).getParticipants().size();
+        int anneeInt = Integer.parseInt(year);
+        Annee toto = new Annee(anneeInt);
+        return toto.getEpreuve().get(category).getParticipants().size();
     }
 
-    public static String formatTime(int time) {
-        StringBuilder strb = new StringBuilder();
-        int h, m, s, cs;
-        h = (time - (time % 360000)) / 360000;
-        time -= h * 360000;
-        m = (time - (time % 6000)) / 6000;
-        time -= m * 6000;
-        s = (time - (time % 100)) / 100;
-        time -= s * 100;
-        cs = time;
-        if (0 < h)
-            strb.append(h + ":");
-        if (10 > m)
-            strb.append("0");
-        strb.append(m + ".");
-        if (10 > s)
-            strb.append("0");
-        strb.append(s + ",");
-        if (10 > cs)
-            strb.append("0");
-        strb.append(cs);
-        return strb.toString();
-    }
 }

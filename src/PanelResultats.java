@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,13 +15,7 @@ public class PanelResultats extends JPanel {
         super();
         setLayout(new GridLayout(1, 1));
         table = new JTable(new TableauResultats(data));
-        table.getColumn("#").setPreferredWidth(100);
-        table.getColumn("Nom").setPreferredWidth(800);
-        table.getColumn("Naissance").setPreferredWidth(300);
-        table.getColumn("Club").setPreferredWidth(700);
-        table.getColumn("Temps").setPreferredWidth(400);
-        table.getColumn("Classement Catégorie").setPreferredWidth(400);
-        table.getColumn("Pays").setPreferredWidth(200);
+
 
         table.setAutoCreateRowSorter(true);
         table.setColumnSelectionAllowed(false);
@@ -56,7 +51,7 @@ public class PanelResultats extends JPanel {
         table.getColumn("Naissance").setPreferredWidth(300);
         table.getColumn("Club").setPreferredWidth(700);
         table.getColumn("Temps").setPreferredWidth(400);
-        table.getColumn("Classement Catégorie").setPreferredWidth(400);
+        table.getColumn("Classement catégorie").setPreferredWidth(400);
         table.getColumn("Pays").setPreferredWidth(200);
 
         table.setAutoCreateRowSorter(true);

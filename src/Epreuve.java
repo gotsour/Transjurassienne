@@ -3,13 +3,13 @@ import java.util.TreeSet;
 public class Epreuve {
     protected int distance;
     protected int annee;
-    protected boolean gender;
+    protected boolean sexe;
     private TreeSet<Coureur> participants;
 
     public Epreuve(int annee, boolean sexe, int distance) {
-        annee = annee;
-        sexe = sexe;
-        distance = distance;
+        this.annee = annee;
+        this.sexe = sexe;
+        this.distance = distance;
         participants = new TreeSet<Coureur>();
     }
 

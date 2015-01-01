@@ -1,12 +1,10 @@
 public class DataEvent {
     private String year;
     private String raceCat;
-    private String search;
 
-    public DataEvent(String year, String raceCat, String search) {
+    public DataEvent(String year, String raceCat) {
         this.year = year;
         this.raceCat = raceCat;
-        this.search = search;
     }
 
     public String getYear() {
@@ -23,13 +21,5 @@ public class DataEvent {
 
     public void setRaceCat(String raceCat) {
         this.raceCat = raceCat;
-    }
-
-    public String getSearch() {
-        return search;
-    }
-
-    public void setSearch(String search) {
-        this.search = search;
     }
 }

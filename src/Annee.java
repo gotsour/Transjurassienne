@@ -5,7 +5,7 @@ public class Annee {
     private HashMap<String, Epreuve> Epreuve;
 
     public Annee(int annee) {
-        annee = annee;
+        this.annee = annee;
         Epreuve = new HashMap<String, Epreuve>();
         Epreuve.put("25CTF", new Classique(annee, true, 25));
         Epreuve.put("25FTF", new Libre(annee, true, 25));

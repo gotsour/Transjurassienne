@@ -5,27 +5,13 @@ import java.awt.Insets;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 
 public class PanelStats extends JPanel {
     Parser dm;
-    JTable table;
-    Annee year;
-    String raceCat;
     JLabel nbParticipantsLabel;
-    JLabel averageTimeLabel;
-    JLabel nbOfCountryLabel;
-    JLabel minTimeLabel;
-    JLabel maxTimeLabel;
-    JLabel timeGapLabel;
     JTextField nbParticipants;
-    JTextField averageTime;
-    JTextField nbOfCountry;
-    JTextField minTime;
-    JTextField maxTime;
-    JTextField timeGap;
     Insets insets;
 
     public PanelStats(Annee annee, String raceCat) {

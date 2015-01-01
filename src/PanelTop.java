@@ -80,10 +80,8 @@ public class PanelTop extends JPanel implements ActionListener {
         if (listener != null) {
             String yearData = (String) year.getSelectedItem();
             String raceCatData = (String) raceCat.getSelectedItem();
-            String searchData = searchField.getText().replace(' ', '+');
 
-            DataEvent dataEvent = new DataEvent(yearData, raceCatData,
-                    searchData);
+            DataEvent dataEvent = new DataEvent(yearData, raceCatData);
 
             listener.dataEmitted(dataEvent);
 

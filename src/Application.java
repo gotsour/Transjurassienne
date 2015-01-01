@@ -7,7 +7,15 @@ import java.util.TreeSet;
 public class Application {
 
     public static void main(String[] args){
-        Parser pr = new Parser(new String("C:\\Users\\thomas\\workspace\\Transjurassienne\\rss\\csv\\2011.csv"));
+        Parser pr = new Parser(new String("C:\\Users\\thomas\\Documents\\GitHub\\Transjurassienne\\rss\\csv\\2011.csv"));
+        try {
+            pr.parse();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        pr.creerPersonne();
+        Fenetre f = new Fenetre();
+
     }
 
 }

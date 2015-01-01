@@ -1,5 +1,3 @@
-
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeSet;
@@ -10,24 +8,26 @@ import javax.swing.text.html.HTMLDocument;
 
 
 public class TableauResultats extends AbstractTableModel {
-    private final static String PATH_TO_IMG = "./assets/img/";
+    private final static String PATH_TO_IMG = "../rss/img/";
     private TreeSet<Coureur> hm;
     private Object[][] data1;
     private String[] columnTitles = { "#", "Nom", "Naissance", "Club", "Temps",
             "Classement catégorie", "Pays" };
 
     public TableauResultats(TreeSet<Coureur> data) {
-        Object[][] data1 = hm.toArray(new Object[hm.size()][7]);
+        hm=data;
+        data1 = new Object[hm.size()][7];
         int n = 0;
         Iterator<Coureur> it = hm.iterator();
         while (it.hasNext()) {
-            data1[n][0] = it.next().getClassement();
-            data1[n][1] = it.next().getNom();
-            data1[n][2] = it.next().getNaissance();
-            data1[n][3] = it.next().getClub();
-            data1[n][4] = it.next().getTemps();
-            data1[n][5] = it.next().getClassement_cat();
-            data1[n][6] = new ImageIcon(PATH_TO_IMG + it.next().getNationalite().toLowerCase() + ".gif");
+            Coureur tmpc = it.next();
+            data1[n][0] = tmpc.getClassement();
+            data1[n][1] = tmpc.getNom();
+            data1[n][2] = tmpc.getNaissance();
+            data1[n][3] = tmpc.getClub();
+            data1[n][4] = tmpc.getTemps();
+            data1[n][5] = tmpc.getClassement_cat();
+            data1[n][6] = new ImageIcon(PATH_TO_IMG + tmpc.getNationalite().toLowerCase() + ".gif");
             n += 1;
         }
     }

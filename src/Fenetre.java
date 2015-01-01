@@ -17,7 +17,6 @@ public class Fenetre extends JFrame {
     private String raceCat;
 
     public Fenetre() {
-        super("Transjurassienne");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(800, 600));
         setLocationRelativeTo(null);
@@ -35,10 +34,10 @@ public class Fenetre extends JFrame {
         // Add northPannel to the main panel
         panelTop = new PanelTop();
         currentYear = Parser.getInstance().getYears().get(panelTop.getSelectedYear());
+        raceCat = new String();
         raceCat = panelTop.getSelectedRace();
-
         // Tab results
-        panelResultats = new PanelResultats(currentYear.getEpreuve().get(panelTop.getSelectedRace()).getParticipants());
+        panelResultats = new PanelResultats(currentYear.getEpreuve().get(raceCat).getParticipants());
         tabs.addTab("Resultats", panelResultats);
 
         // Tab stats
@@ -52,9 +51,9 @@ public class Fenetre extends JFrame {
         // Listening event from northPanel
         panelTop.setDataListener(new DataListener() {
             public void dataEmitted(DataEvent e) {
-                currentYear = Parser.getInstance().getYears().get(e.getYear());
+                int anneeInt = Integer.parseInt(e.getYear());
+                currentYear = new Annee(anneeInt);
                 raceCat = e.getRaceCat();
-
                 panelResultats.updateField(currentYear.getEpreuve().get(raceCat).getParticipants());
                 panelStatistiques.updateField(currentYear, raceCat);
                 panelGraph.updateField(currentYear, raceCat);
