@@ -1,32 +1,39 @@
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.regex.Pattern;
+
 
 public class Parser {
 
     private ArrayList<Coureur> coureurList;
     private HashMap<String, Annee> annees;
     private String path;
+    private ArrayList<HashMap<String, String>> data;
 
     private static Parser instance = null;
+
     public static Parser getInstance() {
         if (null == instance)
-            instance = new Parser(new String("rss\\csv\\2012.csv"));
+            instance = new Parser();
         return instance;
     }
 
-    public Parser(String file_path) {
-        instance=this;
-        path = file_path;
+    public Parser() {
+        instance = this;
         coureurList = new ArrayList<Coureur>();
+        data = new ArrayList<HashMap<String, String>>();
+        annees = new HashMap<String, Annee>();
     }
 
-    ArrayList<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
 
     public void parse() throws IOException {
+        data.clear();
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "ISO-8859-1"));
         String line = "";
         int lineNumber = 0;
@@ -47,12 +54,10 @@ public class Parser {
             lineNumber += 1;
         }
         br.close();
-        System.out.println(data);
     }
 
     public void creerPersonne(int entre) {
         Annee tmpYear;
-        HashMap<String, Annee> annees;
         Coureur tmpCoureur;
 
         String nom = "";
@@ -63,8 +68,6 @@ public class Parser {
         int classement = 0;
         int classement_cat = 0;
         String temps = "";
-
-        this.annees = new HashMap<String, Annee>();
 
 
         tmpYear = new Annee(entre);
@@ -85,25 +88,59 @@ public class Parser {
                 classement = Integer.parseInt(entry.get("Classement"));
                 classement_cat = Integer.parseInt(entry.get("Classement_cat"));
                 temps = entry.get("Arrivee");
-                if ('F' == entry.get("Course").charAt(entry.get("Course").length() - 1)){
+                if ('F' == entry.get("Course").charAt(entry.get("Course").length() - 1)) {
                     tmpCoureur = new Femme(nom, naissance, club, nationalite, categorie, classement, temps, classement_cat);
-                }
-                else{
+                } else {
                     tmpCoureur = new Homme(nom, naissance, club, nationalite, categorie, classement, temps, classement_cat);
                 }
                 coureurList.add(tmpCoureur);
                 tmpYear.getEpreuve().get(entry.get("Course")).addParticipant(tmpCoureur);
             }
         }
-        this.annees.put(""+entre, tmpYear);
+        this.annees.put("" + entre, tmpYear);
     }
 
     public HashMap<String, Annee> getYears() {
         return annees;
     }
-    public int numberOfParticipants(String year, String category) {
-        int anneeInt = Integer.parseInt(year);
-        Annee toto = new Annee(anneeInt);
-        return toto.getEpreuve().get(category).getParticipants().size();
+
+    public int numberOfParticipants(Annee year, String category) {
+        int anneeInt = year.getAnnee();
+        Annee an = this.getYears().get("" + anneeInt);
+        int taille = an.getEpreuve().get(category).getParticipants().size();
+        return taille;
     }
+
+    public String averageTime(Annee year, String category) {
+
+        Annee an = this.getYears().get("" + year.getAnnee());
+        ArrayList<Coureur> part = an.getEpreuve().get(category).getParticipants();
+        int heure=0, minute=0, seconde=0;
+        Iterator<Coureur> it = part.iterator();
+
+        int count = 0;
+        while (it.hasNext()) {
+            count ++;
+            String temps = it.next().getTemps();
+            String retval[] = temps.split("[^0-9]");
+
+            heure+=Integer.parseInt(retval[0]);
+            minute+=Integer.parseInt(retval[1]);
+            seconde+=Integer.parseInt(retval[2]);
+        }
+
+        int averageSec= (((heure*60*60)+(minute*60)+seconde)/count);
+        heure=averageSec / 3600;
+        minute=(averageSec % 3600) / 60;
+        seconde=(averageSec % 3600) % 60;
+
+        String temp = heure+":"+minute+":"+seconde;
+
+        return temp;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
 }

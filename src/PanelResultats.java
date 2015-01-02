@@ -1,11 +1,8 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.TreeSet;
 
 
 public class PanelResultats extends JPanel {
@@ -22,34 +19,40 @@ public class PanelResultats extends JPanel {
 
     public void updateField(ArrayList<Coureur> data) {
         this.removeAll();
-        setLayout(new GridLayout(1, 1));
-        table = new JTable(new TableauResultats(data));
-        table.getColumn("#").setPreferredWidth(100);
-        table.getColumn("Nom").setPreferredWidth(800);
-        table.getColumn("Naissance").setPreferredWidth(300);
-        table.getColumn("Club").setPreferredWidth(700);
-        table.getColumn("Temps").setPreferredWidth(400);
-        table.getColumn("Classement catégorie").setPreferredWidth(400);
-        table.getColumn("Pays").setPreferredWidth(200);
 
-        table.setAutoCreateRowSorter(true);
-        table.setColumnSelectionAllowed(false);
+        if(data.size() != 0) {
+            setLayout(new GridLayout(1, 1));
+            table = new JTable(new TableauResultats(data));
+            table.getColumn("#").setPreferredWidth(100);
+            table.getColumn("Nom").setPreferredWidth(800);
+            table.getColumn("Naissance").setPreferredWidth(300);
+            table.getColumn("Club").setPreferredWidth(700);
+            table.getColumn("Temps").setPreferredWidth(400);
+            table.getColumn("Classement catégorie").setPreferredWidth(400);
+            table.getColumn("Pays").setPreferredWidth(200);
 
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+            table.setAutoCreateRowSorter(true);
+            table.setColumnSelectionAllowed(false);
 
-        JTableHeader header = table.getTableHeader();
-        header.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        header.setReorderingAllowed(false);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        table.setAutoCreateRowSorter(true);
-        DefaultRowSorter<?, ?> sorter = ((DefaultRowSorter<?, ?>)table.getRowSorter());
-        ArrayList<RowSorter.SortKey> list = new ArrayList<RowSorter.SortKey>();
-        list.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-        sorter.setSortKeys(list);
-        sorter.sort();
+            JTableHeader header = table.getTableHeader();
+            header.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            header.setReorderingAllowed(false);
 
-        table.setDefaultRenderer(Integer.class, centerRenderer);
-        add(new JScrollPane(table));
+            table.setAutoCreateRowSorter(true);
+            DefaultRowSorter<?, ?> sorter = ((DefaultRowSorter<?, ?>) table.getRowSorter());
+            ArrayList<RowSorter.SortKey> list = new ArrayList<RowSorter.SortKey>();
+            list.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+            sorter.setSortKeys(list);
+            sorter.sort();
+
+            table.setDefaultRenderer(Integer.class, centerRenderer);
+            add(new JScrollPane(table));
+        }else{
+            JOptionPane.showMessageDialog(null,"Cette course n'existe pas pour cette année");
+        }
+        this.revalidate();
     }
 }

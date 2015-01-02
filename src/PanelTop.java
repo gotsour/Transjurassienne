@@ -10,13 +10,15 @@ import javax.swing.border.Border;
 public class PanelTop extends JPanel implements ActionListener {
     private JLabel yearLabel;
     private JLabel raceCatLabel;
+    private JLabel searchFieldLabel;
     private JComboBox raceCat;
     private JComboBox year;
+    private JTextField searchField;
     private DataListener listener;
 
     private String[] yearsString;
     private String[] raceCategoryString = { "25CTF", "25CTM", "25FTF", "25FTM",
-            "50CTF", "50CTM", "76FTF", "76FTM" };
+            "50CTF", "50CTM", "76FTF", "76FTM", "30FTM", "30FTF", "50FTM", "50FTF", "70FTM", "70FTF" };
 
     public PanelTop() {
         super();
@@ -61,6 +63,13 @@ public class PanelTop extends JPanel implements ActionListener {
         raceCat.addActionListener(this);
         add(raceCat, this);
 
+        /*// Set up the searchFieldLabel
+        searchFieldLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+        add(searchFieldLabel, this);
+
+        // Set up the search TextField
+        searchField.setBorder(BorderFactory.createEtchedBorder());
+        add(searchField, this);*/
     }
 
     public void setDataListener(DataListener listener) {

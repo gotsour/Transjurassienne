@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.util.TreeSet;
 
@@ -6,14 +7,24 @@ import java.util.TreeSet;
  */
 public class Application {
 
-    public static void main(String[] args){
-        Parser pr = new Parser(new String("rss\\csv\\2012.csv"));
-        try {
-            pr.parse();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws IOException {
+
+        Parser pr = new Parser();
+        File repertoire = new File("rss\\csv\\");
+        String [] listefichiers;
+        listefichiers=repertoire.list();
+        for(int i=0;i<listefichiers.length;i++) {
+            System.out.println(listefichiers[i]);
+            if (listefichiers[i].endsWith(".csv") == true) {
+                pr.setPath("rss\\csv\\"+listefichiers[i]);
+                pr.parse();
+
+                String intValue = listefichiers[i].replaceAll("[^0-9]", "");
+                int annee = Integer.parseInt(intValue);
+                //System.out.println(annee);
+                pr.creerPersonne(annee);
+            }
         }
-        pr.creerPersonne(2012);
         Fenetre f = new Fenetre();
 
     }

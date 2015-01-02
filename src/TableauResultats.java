@@ -1,8 +1,10 @@
 
-import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.TreeSet;
+
+import javax.swing.ImageIcon;
+import javax.swing.table.AbstractTableModel;
 
 
 public class TableauResultats extends AbstractTableModel {

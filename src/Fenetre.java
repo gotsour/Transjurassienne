@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 public class Fenetre extends JFrame {
@@ -15,41 +14,34 @@ public class Fenetre extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(800, 600));
         setLocationRelativeTo(null);
-        // Set menu
+// Set menu
         menu = new Menu();
         setJMenuBar(menu);
-        // Set up tabbed pane
+// Set up tabbed pane
         tabs = new JTabbedPane();
-        // Set the main panel with a border layout
+// Set the main panel with a border layout
         setLayout(new BorderLayout());
-        // Add northPannel to the main panel
+// Add northPannel to the main panel
         panelTop = new PanelTop();
         currentYear = Parser.getInstance().getYears().get(panelTop.getSelectedYear());
+        System.out.println(currentYear.getAnnee());
         raceCat = new String();
         raceCat = panelTop.getSelectedRace();
-        // Tab results
+        System.out.println(raceCat);
+// Tab results
         panelResultats = new PanelResultats(currentYear.getEpreuve().get(raceCat).getParticipants());
         tabs.addTab("Resultats", panelResultats);
-        // Tab stats
+// Tab stats
         panelStatistiques = new PanelStats(currentYear, raceCat);
         tabs.addTab("Statistiques", panelStatistiques);
-        // Tab graphs
+// Tab graphs
         panelGraph = new PanelGraph(currentYear, raceCat);
         tabs.addTab("Graphics", panelGraph);
-        // Listening event from northPanel
+// Listening event from northPanel
         panelTop.setDataListener(new DataListener() {
             public void dataEmitted(DataEvent e) {
                 if (Parser.getInstance().getYears().get(panelTop.getSelectedYear()) != currentYear) {
-                    int anneeInt = Integer.parseInt(e.getYear());
-                    currentYear = new Annee(anneeInt);
-                    Parser p = new Parser(new String("rss\\csv\\"+anneeInt+".csv"));
-                    try {
-                        p.parse();
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                    p.creerPersonne(anneeInt);
-                    //panelResultats.updateField(currentYear.getEpreuve().get(raceCat).getParticipants());
+                    currentYear = Parser.getInstance().getYears().get(panelTop.getSelectedYear());
                 }
                 raceCat = e.getRaceCat();
                 panelResultats.updateField(currentYear.getEpreuve().get(raceCat).getParticipants());
