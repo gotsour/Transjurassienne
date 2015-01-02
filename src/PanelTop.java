@@ -10,10 +10,8 @@ import javax.swing.border.Border;
 public class PanelTop extends JPanel implements ActionListener {
     private JLabel yearLabel;
     private JLabel raceCatLabel;
-    private JLabel searchFieldLabel;
     private JComboBox raceCat;
     private JComboBox year;
-    private JTextField searchField;
     private DataListener listener;
 
     private String[] yearsString;
@@ -27,17 +25,14 @@ public class PanelTop extends JPanel implements ActionListener {
 
         raceCatLabel = new JLabel("Category : ");
 
-        // Set up the pannel
         setLayout(new FlowLayout(FlowLayout.CENTER));
         Border outter = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         Border inner = BorderFactory.createEtchedBorder();
         setBorder(BorderFactory.createCompoundBorder(outter, inner));
 
-        // Set up the yearLabel
         yearLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
         add(yearLabel, this);
 
-        // Set up the year ComboBox
         yearsString = new String[4];
         yearsString[0] = "2011";
         yearsString[1] = "2012";
@@ -52,24 +47,14 @@ public class PanelTop extends JPanel implements ActionListener {
         year.addActionListener(this);
         add(year, this);
 
-        // Set up the raceCatLabel
         raceCatLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
         add(raceCatLabel, this);
 
-        // Set up the raceCat ComboBox
         raceCat = new JComboBox(raceCategoryString);
         raceCat.setName("race");
         raceCat.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 30));
         raceCat.addActionListener(this);
         add(raceCat, this);
-
-        /*// Set up the searchFieldLabel
-        searchFieldLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
-        add(searchFieldLabel, this);
-
-        // Set up the search TextField
-        searchField.setBorder(BorderFactory.createEtchedBorder());
-        add(searchField, this);*/
     }
 
     public void setDataListener(DataListener listener) {

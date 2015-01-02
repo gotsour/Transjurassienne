@@ -28,63 +28,33 @@ public class Coureur {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
 
     public int getNaissance() {
         return naissance;
     }
 
-    public void setNaissance(int naissance) {
-        this.naissance = naissance;
-    }
 
     public String getClub() {
         return club;
     }
 
-    public void setClub(String club) {
-        this.club = club;
-    }
 
     public String getNationalite() {
         return nationalite;
     }
 
-    public void setNationalite(String nationalite) {
-        this.nationalite = nationalite;
-    }
-
-    public String getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
-    }
 
     public String getTemps() {
         return temps;
     }
 
-    public void setTemps(String temps) {
-        this.temps = temps;
-    }
 
     public int getClassement_cat() {
         return classement_cat;
     }
 
-    public void setClassement_cat(int classement_cat) {
-        this.classement_cat = classement_cat;
-    }
 
     public int getClassement() {
         return classement;
-    }
-
-    public void setClassement(int classement) {
-        this.classement = classement;
     }
 }

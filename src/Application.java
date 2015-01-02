@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.TreeSet;
 
 /**
  * Created by thomas on 12/12/2014.
@@ -21,7 +20,6 @@ public class Application {
 
                 String intValue = listefichiers[i].replaceAll("[^0-9]", "");
                 int annee = Integer.parseInt(intValue);
-                //System.out.println(annee);
                 pr.creerPersonne(annee);
             }
         }

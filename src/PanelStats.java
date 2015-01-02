@@ -5,27 +5,14 @@ import java.awt.Insets;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 
 public class PanelStats extends JPanel {
-
-    JTable table;
-    Annee year;
-    String raceCat;
     JLabel nbParticipantsLabel;
-    JLabel averageTimeLabel;
-    JLabel nbOfCountryLabel;
-    JLabel minTimeLabel;
-    JLabel maxTimeLabel;
-    JLabel timeGapLabel;
     JTextField nbParticipants;
-    JTextField averageTime;
-    JTextField nbOfCountry;
-    JTextField minTime;
-    JTextField maxTime;
-    JTextField timeGap;
+    JLabel temps;
+    JTextField tempsMoyen;
     Insets insets;
 
     public PanelStats(Annee annee, String raceCat) {
@@ -39,40 +26,37 @@ public class PanelStats extends JPanel {
         gc.insets = insets;
         gc2.insets = insets;
 
-        //First row //////////////////////////////////////////////////////////
-        gc.gridy = 0;
-       // gc2.gridy = 50;
-
         gc.gridx = 0;
-       // gc2.gridx = 0;
         gc.anchor = GridBagConstraints.LINE_END;
         gc.fill = GridBagConstraints.NONE;
-       // gc2.anchor = GridBagConstraints.LINE_END;
-        //gc2.fill = GridBagConstraints.NONE;
         nbParticipantsLabel = new JLabel("Nombre de participants: ");
-       // averageTimeLabel = new JLabel("Temps Moyen: ");
         add(nbParticipantsLabel, gc);
-       // add(averageTimeLabel,gc2);
 
         gc.gridx = 1;
         gc.anchor = GridBagConstraints.LINE_START;
-       // gc2.gridx = 1;
-       // gc2.anchor = GridBagConstraints.LINE_START;
         nbParticipants = new JTextField(10);
-      //  averageTime = new JTextField(10);
         nbParticipants.setEditable(false);
-        //averageTime.setEditable(false);
         nbParticipants.setBackground(Color.WHITE);
-        //averageTime.setBackground(Color.WHITE);
         nbParticipants.setText("" + Parser.getInstance().numberOfParticipants(annee, raceCat));
-        //averageTime.setText("" + Parser.getInstance().averageTime(annee,raceCat));
-        add(nbParticipants, gc);
-        //add(averageTime,gc2);
 
+        gc.gridx = 2;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.fill = GridBagConstraints.NONE;
+        temps = new JLabel("Temps moyen de l'épreuve : ");
+        add(temps, gc);
+
+        gc.gridx = 3;
+        gc.anchor = GridBagConstraints.LINE_START;
+        tempsMoyen = new JTextField(10);
+        tempsMoyen.setEditable(false);
+        tempsMoyen.setBackground(Color.WHITE);
+        int anneeInt = annee.getAnnee();
+        String anneeString = Integer.toString(anneeInt);
+        tempsMoyen.setText("" + Parser.getInstance().averageTime(anneeString, raceCat));
+        add(tempsMoyen, gc);
     }
 
     public void updateField(Annee annee, String raceCat) {
         nbParticipants.setText("" + Parser.getInstance().numberOfParticipants(annee, raceCat));
-        //averageTime.setText("" + Parser.getInstance().averageTime(annee,raceCat));
     }
 }

@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.regex.Pattern;
 
 
 public class Parser {
@@ -110,35 +108,7 @@ public class Parser {
         int taille = an.getEpreuve().get(category).getParticipants().size();
         return taille;
     }
-
-    public String averageTime(Annee year, String category) {
-
-        Annee an = this.getYears().get("" + year.getAnnee());
-        ArrayList<Coureur> part = an.getEpreuve().get(category).getParticipants();
-        int heure=0, minute=0, seconde=0;
-        Iterator<Coureur> it = part.iterator();
-
-        int count = 0;
-        while (it.hasNext()) {
-            count ++;
-            String temps = it.next().getTemps();
-            String retval[] = temps.split("[^0-9]");
-
-            heure+=Integer.parseInt(retval[0]);
-            minute+=Integer.parseInt(retval[1]);
-            seconde+=Integer.parseInt(retval[2]);
-        }
-
-        int averageSec= (((heure*60*60)+(minute*60)+seconde)/count);
-        heure=averageSec / 3600;
-        minute=(averageSec % 3600) / 60;
-        seconde=(averageSec % 3600) % 60;
-
-        String temp = heure+":"+minute+":"+seconde;
-
-        return temp;
-    }
-
+    
     public void setPath(String path) {
         this.path = path;
     }
